@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Python virtual environment
+venv/
+*.pyc
+__pycache__/
+
+
+/packages
+.o
+.class
+
+/bin
+/out
+/target
+
+.log
+.lock
+.tmp
+
+DS_Store
+Thumbs.db
+
+.idea/workspace.xml
+
+frontend\Support
+frontend\ThemeBuilder
+frontend\arquivos\DevExpressDevExtreme-Complete-22.2.4.zip
+frontend\Demos
