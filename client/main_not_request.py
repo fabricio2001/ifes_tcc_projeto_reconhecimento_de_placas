@@ -22,7 +22,7 @@ try:
 
         ret, img = cap.read()
 
-        img_str = cv2.imencode('.jpg', img)[1].tostring()
+        img_str = cv2.imencode('.jpg', img)[1].tobytes()
         result = alpr.recognize_array(img_str)
 
         for plate in result["results"]:
