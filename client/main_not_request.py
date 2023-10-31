@@ -13,8 +13,8 @@ if not alpr.is_loaded():
 alpr.set_top_n(20)
 alpr.set_default_region("br")
 
-# cap = cv2.VideoCapture(0)
-cap = cv2.VideoCapture("resource/videos/1.mp4")
+cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture("resource/videos/1.mp4")
 placaAtual = ""
 try:
     while True:
@@ -27,16 +27,16 @@ try:
 
         for plate in result["results"]:
             cv2.rectangle(img, (plate['coordinates'][0]['x'], plate['coordinates'][0]['y']),
-                        (plate['coordinates'][1]['x'], plate['coordinates'][1]['y']), (255, 0, 0), 2)
+                          (plate['coordinates'][1]['x'], plate['coordinates'][1]['y']), (255, 0, 0), 2)
 
             if (placaAtual != plate['plate']):
                 placaAtual = plate['plate']
                 registro = [
-                    {"placa": plate['plate'], "direcao": 1, "data": datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')},
+                    {"placa": plate['plate'], "direcao": 1, "data": datetime.datetime.now(
+                    ).strftime('%d/%m/%Y %H:%M:%S')},
                 ]
                 print(registro)
                 # requests.post(f"{url}/Registros/App", json=registro)
-                
 
         # cv2.imshow("img", img)
 
