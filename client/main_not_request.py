@@ -4,16 +4,27 @@ from openalpr import Alpr
 import numpy as np
 import datetime
 import sys
+import requests
 
 if len(sys.argv) > 1:
     parametro = sys.argv[1]
-    print(f"Parâmetro recebido: {parametro}")
+    try:
+        numero = int(parametro)
+        if numero == 1 or numero == 2:
+            print(f"Parâmetro válido: {numero}")
+        else:
+            print("Entrada inválida. Por favor, insira 1 ou 2.")
+            sys.exit(1)
+    except ValueError:
+        print("Entrada inválida. Por favor, insira 1 ou 2.")
+        sys.exit(1)
+
 else:
     print("Nenhum parâmetro foi passado.")
     sys.exit(1)
 
 alpr = Alpr("br", "openalpr.conf", "runtime_data")
-# url = "http://127.0.0.1:5000"
+url = "https://webhook.site/3ddb85d6-7a2b-48a4-81a4-0a41b3330122"
 if not alpr.is_loaded():
     print("Error loading openalpr")
     sys.exit(1)
@@ -40,7 +51,7 @@ try:
             if (placaAtual != plate['plate']):
                 placaAtual = plate['plate']
                 registro = [
-                    {"placa": plate['plate'], "direcao": parametro, "data": datetime.datetime.now(
+                    {"placa": plate['plate'], "accuracy": plate['confidence'], "direcao": parametro, "data": datetime.datetime.now(
                     ).strftime('%d/%m/%Y %H:%M:%S')},
                 ]
                 print(registro)
