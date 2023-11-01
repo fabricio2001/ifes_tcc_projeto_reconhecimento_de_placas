@@ -3,6 +3,14 @@ import datetime
 from openalpr import Alpr
 import numpy as np
 import datetime
+import sys
+
+if len(sys.argv) > 1:
+    parametro = sys.argv[1]
+    print(f"Parâmetro recebido: {parametro}")
+else:
+    print("Nenhum parâmetro foi passado.")
+    sys.exit(1)
 
 alpr = Alpr("br", "openalpr.conf", "runtime_data")
 # url = "http://127.0.0.1:5000"
@@ -13,8 +21,8 @@ if not alpr.is_loaded():
 alpr.set_top_n(20)
 alpr.set_default_region("br")
 
-cap = cv2.VideoCapture(0)
-# cap = cv2.VideoCapture("resource/videos/1.mp4")
+# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("resource/videos/1.mp4")
 placaAtual = ""
 try:
     while True:
@@ -32,7 +40,7 @@ try:
             if (placaAtual != plate['plate']):
                 placaAtual = plate['plate']
                 registro = [
-                    {"placa": plate['plate'], "direcao": 1, "data": datetime.datetime.now(
+                    {"placa": plate['plate'], "direcao": parametro, "data": datetime.datetime.now(
                     ).strftime('%d/%m/%Y %H:%M:%S')},
                 ]
                 print(registro)
@@ -44,4 +52,4 @@ try:
             break
 except Exception as e:
     # Código que será executado para qualquer outra exceção
-    print(f"Ocorreu um erro: {e}")
+    print(f"Video finalizado.")

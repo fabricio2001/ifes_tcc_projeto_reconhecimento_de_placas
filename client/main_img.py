@@ -4,8 +4,8 @@ from openalpr import Alpr
 import numpy as np
 import requests
 import datetime
-import os
 import json
+import sys
 
 alpr = Alpr("br", "openalpr.conf", "runtime_data")
 url = "http://127.0.0.1:5000"
@@ -39,15 +39,16 @@ while True:
         if (placaAtual != plate['plate']):
             placaAtual = plate['plate']
             registro = [
-                {"placa": plate['plate'], "direcao": 1, "data": datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')},
+                {"placa": plate['plate'], "direcao": 1, "data": datetime.datetime.now(
+                ).strftime('%d/%m/%Y %H:%M:%S')},
             ]
             # print(registro)
             json_data = json.dumps(registro)
             print(json_data)
             with open(filename, 'rb') as image:
-                response = requests.post(f"{url}/Registros/App", files={"image": image}, data={"json_field": json_data})
+                response = requests.post(
+                    f"{url}/Registros/App", files={"image": image}, data={"json_field": json_data})
             #requests.post(f"{url}/Registros/App", json=registro)
-            
 
     cv2.imshow("img", img)
 
