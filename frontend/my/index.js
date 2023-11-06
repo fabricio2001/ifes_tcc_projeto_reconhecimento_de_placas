@@ -56,7 +56,7 @@ $(() => {
   }).dxChart('instance');
 
   $('#backButton').dxButton({
-    text: 'Back',
+    text: 'Voltar',
     icon: 'chevronleft',
     visible: false,
     onClick() {
