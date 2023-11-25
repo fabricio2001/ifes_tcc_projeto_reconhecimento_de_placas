@@ -55,7 +55,12 @@ try:
                     ).strftime('%d/%m/%Y %H:%M:%S')},
                 ]
                 print(registro)
-                # requests.post(f"{url}/Registros/App", json=registro)
+                response = requests.post(f"{url}/Registros/App", json=registro)
+                if response.status_code == 200:
+                    # Processar a resposta
+                    print(response.json())  # Assumindo que a resposta é em JSON
+                else:
+                    print('Falha na requisição:', response.status_code)
 
         # cv2.imshow("img", img)
 
